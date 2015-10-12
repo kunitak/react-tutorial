@@ -1,4 +1,5 @@
 var React = require('react');
+var ReactDOM = require('react-dom');
 var Header = require('./views/header.jsx');
 var Body = require('./views/body.jsx');
 var Footer = require('./views/footer.jsx');
@@ -18,7 +19,7 @@ var Index = React.createClass({
   }
 });
 
-React.render(
+ReactDOM.render(
   <Index />,
   document.getElementById('content')
 );

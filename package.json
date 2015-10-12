@@ -12,6 +12,7 @@
     "browserify": "^11.2.0",
     "gulp": "^3.9.0",
     "react": "^0.14.0",
+    "react-dom": "^0.14.0",
     "reactify": "^1.1.1",
     "vinyl-source-stream": "^1.1.0"
   }
