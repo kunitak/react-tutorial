@@ -4,7 +4,10 @@ var React = require('react');
 var Footer = React.createClass({
   render: function(){
     return (
-      <h1>フッタです</h1>
+      <footer style={{textAlign: "center"}}>
+        <hr/>
+        <span>フッタです</span>
+      </footer>
     );
   }
 });

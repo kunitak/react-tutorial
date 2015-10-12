@@ -4,7 +4,9 @@ var React = require('react');
 var Body = React.createClass({
   render: function(){
     return (
-      <h1>ボディです</h1>
+      <div style={{textAlign: "center"}}>
+        <h1>ボディです</h1>
+      </div>
     );
   }
 });

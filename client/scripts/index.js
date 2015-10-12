@@ -1,17 +1,17 @@
 var React = require('react');
-var Header = require('./views/header.jsx');//ヘッダをインポート
-var Body = require('./views/body.jsx');//ボディをインポート
-var Footer = require('./views/footer.jsx');//フッタをインポート
+var Header = require('./views/header.jsx');
+var Body = require('./views/body.jsx');
+var Footer = require('./views/footer.jsx');
 
-//コンポーネントを一つにまとめる
+//classNameでcssを指定
 var Index = React.createClass({
   render:function(){
     return (
       <div>
         <Header/>
-        <hr/>
-        <Body/>
-        <hr/>
+        <div className="main">
+          <Body/>
+        </div>
         <Footer/>
       </div>
     );
