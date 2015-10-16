@@ -15,6 +15,9 @@
     "react": "^0.14.0",
     "react-dom": "^0.14.0",
     "reactify": "^1.1.1",
-    "vinyl-source-stream": "^1.1.0"
+    "vinyl-source-stream": "^1.1.0",
+    "superagent": "~1.4.0",
+    "body-parser": "~1.14.1",
+    "pg": "~4.4.3"
   }
 }

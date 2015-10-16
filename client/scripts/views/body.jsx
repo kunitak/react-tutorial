@@ -1,5 +1,6 @@
 var React = require('react');
 var ReactDOM = require('react-dom');
+var request = require('superagent');
 
 //ボディの定義
 var Body = React.createClass({
@@ -15,10 +16,38 @@ var UserBox = React.createClass({
   getInitialState:function(){
     return {userData:[]};
   },
+  getUsers:function(name, mail) {
+    var url = "/get_users";
+    //ajax通信する
+    request
+      .get(url)
+      .query({})
+      .end(function(err, res){
+        if (err) {
+          alert(res.text);
+        }
+        var map = JSON.parse(res.text);
+        //表示されている値を更新
+        this.setState({userData: map});
+      }.bind(this));
+  },
   handleAddUser:function(name, mail){
-    var data = this.state.userData;
-    data.push({name: name, mail: mail});
-    this.setState({userData: data});
+    var url = "/post_user";
+    //ajax通信する
+    request
+      .post(url)
+      .send({name: name, mail: mail})
+      .end(function(err, res){
+        if (err) {
+          alert(res.text);
+        }
+        var map = JSON.parse(res.text);
+        //表示されている値を更新
+        this.setState({userData: map});
+      }.bind(this));
+  },
+  componentDidMount:function(){
+    this.getUsers();
   },
   render:function(){
     return(
