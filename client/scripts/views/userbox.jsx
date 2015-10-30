@@ -1,49 +1,45 @@
 var React = require('react');
 var ReactDOM = require('react-dom');
-var request = require('superagent');
+
+var UserActions = require('../actions/userActions');
+var UserStore = require('../stores/userStore');
+
+var getUserStoreStates = function(){
+  return UserStore.getAjaxResult();
+};
 
 //フォームとリストを一つにしたもの
 var UserBox = React.createClass({
   getInitialState:function(){
-    return {userData:[]};
+    return getUserStoreStates();
   },
-  getUsers:function(name, mail) {
-    var url = "/get_users";
-    //ajax通信する
-    request
-      .get(url)
-      .query({})
-      .end(function(err, res){
-        if (err) {
-          alert(res.text);
-        }
-        var map = JSON.parse(res.text);
-        //表示されている値を更新
-        this.setState({userData: map});
-      }.bind(this));
+  componentWillMount:function(){
+    UserStore.addLoadListener(this.onViewUsers);
+    UserStore.addRegisterListener(this.onUpdatedUser);
+  },
+  componentWillUnmount:function(){
+    UserStore.removeLoadListener(this.onViewUsers);
+    UserStore.removeRegisterListener(this.onUpdatedUser);
+  },
+  onViewUsers:function(){
+    this.setState(getUserStoreStates());
+  },
+  onUpdatedUser:function(){
+    //更新成功したらクリアする
+    ReactDOM.findDOMNode(this.refs.userform.refs.name).value = "";
+    ReactDOM.findDOMNode(this.refs.userform.refs.mail).value = "";
+    this.onViewUsers();
   },
   handleAddUser:function(name, mail){
-    var url = "/post_user";
-    //ajax通信する
-    request
-      .post(url)
-      .send({name: name, mail: mail})
-      .end(function(err, res){
-        if (err) {
-          alert(res.text);
-        }
-        var map = JSON.parse(res.text);
-        //表示されている値を更新
-        this.setState({userData: map});
-      }.bind(this));
+    UserActions.register({name: name, mail: mail});
   },
   componentDidMount:function(){
-    this.getUsers();
+    UserActions.load();
   },
   render:function(){
     return(
       <div style={{width:"300px"}}>
-        <UserForm addUser={this.handleAddUser}/>
+        <UserForm addUser={this.handleAddUser} ref="userform"/>
         <hr/>
         <UserList userData={this.state.userData}/>
       </div>
@@ -100,12 +96,7 @@ var UserForm = React.createClass({
   handleSubmit:function(){
     var name = ReactDOM.findDOMNode(this.refs.name).value.trim();
     var mail = ReactDOM.findDOMNode(this.refs.mail).value.trim();
-    if (!name){
-      return;
-    }
     this.props.addUser(name, mail);
-    ReactDOM.findDOMNode(this.refs.name).value = "";
-    ReactDOM.findDOMNode(this.refs.mail).value = "";
   },
   render:function(){
     return (
