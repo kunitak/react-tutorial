@@ -23,6 +23,7 @@
     "pg": "~4.4.3",
     "react-router": "~1.0.0-rc3",
     "flux": "~2.1.1",
-    "object-assign": "~4.0.1"
+    "object-assign": "~4.0.1",
+    "history": "~1.14.0"
   }
 }
