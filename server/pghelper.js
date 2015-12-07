@@ -1,5 +1,5 @@
 var pg = require('pg'),
-    databaseURL = 'postgres://postgres:postgres@127.0.0.1:5432/postgres';
+    databaseURL = process.env.DATABASE_URL || 'postgres://postgres:postgres@127.0.0.1:5432/postgres';
 
 /**
  * poatgreSQLに接続してSQLを実行する
