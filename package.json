@@ -24,7 +24,6 @@
     "superagent": "~1.4.0",
     "vinyl-source-stream": "^1.1.0",
     "flux": "~2.1.1",
-    "object-assign": "~4.0.1",
-    "history": "~1.14.0"
+    "object-assign": "~4.0.1"
   }
 }
